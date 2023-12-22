@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const User = require('./userSchema');
 const userSocialLinkSchema = new mongoose.Schema({
   facebook: {
     type: String,
@@ -10,10 +9,6 @@ const userSocialLinkSchema = new mongoose.Schema({
   twitter: {
     type: String,
   },
-  Links:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'User'
-  }
 });
 
 const UserLink = mongoose.model("UserLink", userSocialLinkSchema);

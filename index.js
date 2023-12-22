@@ -15,8 +15,7 @@ app.use(express.urlencoded());
 app.use(express.json());
 app.use(
   session({
-    // secret: process.env.SESSION_SECRET,
-    secret: "hghgytifjkdhfkdhhdbjdbhhjhfdsddjdljld",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
   })
@@ -37,7 +36,6 @@ passport.use(
     },
     (accessToken, refreshToken, profile, done) => {
       // Save user information in the session
-      console.log(profile);
       return done(null, profile);
     }
   )
@@ -45,7 +43,6 @@ passport.use(
 
 // Serialize user into the session
 passport.serializeUser((user, done) => {
-  console.log(user)
   done(null, user);
 });
 
