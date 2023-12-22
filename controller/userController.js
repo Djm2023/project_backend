@@ -48,7 +48,7 @@ module.exports.Login = async (req, res) => {
 module.exports.profile = async(req,res) => {
   const socialLink = await userSocialLink.find();
   if(socialLink){
-    return res.json({message:"Link already exists"});
+    return res.json({message:"Link already exists"})
   }
   else{
     const createLink = await userSocialLink.create(req.body);
