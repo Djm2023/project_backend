@@ -9,6 +9,10 @@ const userSocialLinkSchema = new mongoose.Schema({
   twitter: {
     type: String,
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 
 const UserLink = mongoose.model("UserLink", userSocialLinkSchema);

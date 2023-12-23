@@ -33,9 +33,14 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   Links:[{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'UserLink'
+    facebook:{
+      type:String,
+    },
+    instagram:{
+      type:String,
+    }
   }]
+  
 });
 
 const User = mongoose.model("User", userSchema);

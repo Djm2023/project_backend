@@ -46,40 +46,55 @@ module.exports.Login = async (req, res) => {
 };
 
 module.exports.profile = async (req, res) => {
-  const user = await User.find();
-  const userLink = await userSocialLink.create({
+  const userInfo = await User.findById(req.params.id);
+  console.log(userInfo);
+  const userLink = await UserLink.create({
     facebook: req.body.facebook,
     instagram: req.body.instagram,
     twitter: req.body.twitter,
+    user:req.params.id
   });
 
   const userLinkData = await userLink.save();
-
-  user.Links.push(userLinkData);
-  return res.send(userLinkData);
+  userInfo.Links.push(userLinkData._id);
+  return res.json({ message: userLinkData });
 };
 
-module.exports.userProfile = async (req,res) => {
-  const user = await User.find();
-  if(user){
-    return res.json({userProfile:user});
+module.exports.getLink = async (req,res) => {
+  const gettLink = await User.find().populate("Links");
+  return res.json({message:gettLink});
+}
+
+module.exports.profileInfo = async(req,res) => {
+  const userLinks = await UserLink.find().populate('user').exec();
+  if(userLinks){
+    return res.json({message:userLinks})
+  }else{
+    return res.json({message:"User profile not found"})
   }
 }
 
-module.exports.updateLink = async (req, res) => {
-  const userLink = await userSocialLink.find();
-  const user = await User.find().populate('userLin');
+module.exports.updateUser = async (req, res) => {
+  const userIdToUpdate = req.params.id; 
+  const newFacebookLink = req.body.facebook; 
+  const newInstagramLink = req.body.instagram;
 
-  // if (userLink) {
-    // console.log(userLink);
-  //   const user = await User.findByIdAndUpdate(
-  //     { id: req.params.id },
-  //     { $push: { Links: userLink } }
-  //   );
-  //   if (user) {
-  //     return res.json({ message: user });
-  //   } else {
-  //     return res.json({ message: "user not created" });
-  //   }
-  // }
+  const updateUser = await User.findByIdAndUpdate(req.params.id, req.body);
+
+  const updateLinks = await User.updateOne({id:userIdToUpdate},{
+    $set: {
+      "Links.facebook": newFacebookLink,
+      "Links.instagram": newInstagramLink,
+    },
+  })
+  if(updateLinks){
+    res.json({message:updateLinks});
+  }else{
+    res.json({message:"Link not created"});
+  }
+  if (!updateUser) {
+    return res.json({ message: "Not updated" });
+  }
+  const updatedUser = await User.findById(req.params.id)
+  return res.json({ message: updatedUser });
 };

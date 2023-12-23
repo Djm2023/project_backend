@@ -10,7 +10,8 @@ const app = express();
 const db = require("./config/dataBase");
 // Set up session
 const passportJWT = require("./config/passport-jwt");
-
+const cors = require('cors');
+app.use(cors());
 app.use(express.urlencoded());
 app.use(express.json());
 app.use(
