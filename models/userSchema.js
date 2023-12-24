@@ -32,15 +32,17 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  Links:[{
-    facebook:{
-      type:String,
+  Links: [
+    {
+      type: {
+        type: String,
+        enum: ["facebook", "twitter", "instagram"], // Add other social media types as needed
+      },
+      link: {
+        type: String,
+      },
     },
-    instagram:{
-      type:String,
-    }
-  }]
-  
+  ],
 });
 
 const User = mongoose.model("User", userSchema);
