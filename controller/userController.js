@@ -38,6 +38,7 @@ module.exports.Login = async (req, res) => {
       data: {
         token: jwt.sign(userDetails.toJSON(), "secret", { expiresIn: "12h" }),
       },
+      id:userDetails._id
     });
   } catch (error) {
     console.log("Error in JWT ", error);
