@@ -38,7 +38,7 @@ module.exports.Login = async (req, res) => {
       data: {
         token: jwt.sign(userDetails.toJSON(), "secret", { expiresIn: "12h" }),
       },
-      id:userDetails._id
+      id: userDetails._id,
     });
   } catch (error) {
     console.log("Error in JWT ", error);
@@ -171,8 +171,10 @@ module.exports.updateLinks = async (req, res) => {
 
     // Update or add links for Facebook, Twitter, and Instagram
     updateOrAddLink(user, "facebook", req.body.facebook);
-    updateOrAddLink(user, "twitter", req.body.twitter);
     updateOrAddLink(user, "instagram", req.body.instagram);
+    updateOrAddLink(user, "googleAds", req.body.googleAds);
+    updateOrAddLink(user, "linkedin", req.body.linkedin);
+    updateOrAddLink(user, "twitter", req.body.twitter);
 
     // Save the updated user document
     const updatedUser = await user.save();

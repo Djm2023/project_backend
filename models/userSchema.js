@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
     {
       type: {
         type: String,
-        enum: ["facebook", "twitter", "instagram"], // Add other social media types as needed
+        enum: ["facebook", "twitter", "instagram","linkedin" ,"googleAds"], // Add other social media types as needed
       },
       link: {
         type: String,
