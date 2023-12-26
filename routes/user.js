@@ -14,7 +14,7 @@ router.post(
 );
 
 router.get(
-  "/profile",
+  "/profile/:id",
   passport.authenticate("jwt", { session: false }),
   userController.getLink
 );

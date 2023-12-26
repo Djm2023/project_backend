@@ -62,8 +62,9 @@ module.exports.profile = async (req, res) => {
 };
 
 module.exports.getLink = async (req, res) => {
-  const gettLink = await User.find().populate("Links");
-  return res.json({ message: gettLink });
+  // const gettLink = await User.find().populate("Links");
+  const getUserProfile = await User.findById(req.params.id)
+  return res.json({ message: getUserProfile });
 };
 
 module.exports.profileInfo = async (req, res) => {
